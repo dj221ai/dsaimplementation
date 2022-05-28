@@ -6,6 +6,9 @@
 # Every node has data and next field, where data is the data we want to store and next stores the address of another node
 
 
+from tempfile import tempdir
+
+
 class Node:
 
     def __init__(self, data):
@@ -28,7 +31,7 @@ class LinkedList:
         return length
 
 
-    # insertion of nodes
+    # insertion of nodes from here
     def insertAtEnd(self, new_node):
         if self.head is None:
             self.head = new_node
@@ -76,7 +79,17 @@ class LinkedList:
                     newNode.next = curNode
                 counter += 1
                 curNode = curNode.next
-        # del tempNode
+
+    # delettion of nodes from here
+    def deleteAtEnd(self):
+        curNode = self.head
+        while True:
+            if curNode.next is None:
+                prevNode.next = None
+                del curNode
+                return
+            prevNode = curNode
+            curNode = curNode.next
 
     def printlist(self):
         curNode = self.head
@@ -84,6 +97,10 @@ class LinkedList:
         while curNode is not None:
             print(curNode.data)
             curNode = curNode.next
+
+
+    
+            
         
 
 firstNode = Node("Node 1")
@@ -98,9 +115,13 @@ llobj = LinkedList()
 llobj.insertAtHead(thirdNode)
 llobj.insertAtEnd(firstNode)
 llobj.insertAtEnd(secNode)
-llobj.insertAtHead(fourthNode)
-llobj.insertInBetween(fifthNode, 4)
-llobj.insertInBetween(sixthNode, 1)
-llobj.insertInBetween(seventhNode, 0)
-llobj.insertInBetween(eighthNode, 17)
+# llobj.insertAtHead(fourthNode)
+# llobj.insertInBetween(fifthNode, 4)
+# llobj.insertInBetween(sixthNode, 1)
+# llobj.insertInBetween(seventhNode, 0)
+llobj.insertInBetween(eighthNode, 3)
+print("before deleting ")
+llobj.printlist()
+llobj.deleteAtEnd()
+print("After deleting ")
 llobj.printlist()
