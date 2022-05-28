@@ -6,9 +6,6 @@
 # Every node has data and next field, where data is the data we want to store and next stores the address of another node
 
 
-from tempfile import tempdir
-
-
 class Node:
 
     def __init__(self, data):
@@ -21,6 +18,7 @@ class LinkedList:
     def __init__(self) -> None:
         self.head = None
 
+    #check length if list
     def lengthofList(self):
         curNode = self.head
         length = 0
@@ -29,6 +27,13 @@ class LinkedList:
             length += 1
             curNode = curNode.next
         return length
+
+    #checking if list is empty
+    def isEmptyList(self):
+        if self.head is not None:
+            return True
+        else:
+            return False
 
 
     # insertion of nodes from here
@@ -81,17 +86,68 @@ class LinkedList:
                 curNode = curNode.next
 
     # delettion of nodes from here
+
+    # deleting node at end
     def deleteAtEnd(self):
-        curNode = self.head
-        while True:
-            if curNode.next is None:
-                prevNode.next = None
-                del curNode
+        if self.isEmptyList() is True:
+            # checking if list has only one node
+            if self.head.next is None:
+                self.deleteAtHead()
                 return
-            prevNode = curNode
-            curNode = curNode.next
+            curNode = self.head
+            while True:
+                if curNode.next is None:
+                    prevNode.next = None
+                    del curNode
+                    return
+                prevNode = curNode
+                curNode = curNode.next
+        else:
+            print("list is empty can't delete End Node!!")
+
+        # while curNode.next is not None:
+        #     prevNode = curNode
+        #     curNode = curNode.next
+        # prevNode.next = None
+        # del curNode
+
+    # deleting node at head or deleting the first node
+    def deleteAtHead(self):
+        if self.isEmptyList() is True:
+            curNode = self.head
+            self.head = curNode.next
+            del curNode
+        else:
+            print("List is Empty can't delete Head Node")
+
+    # deleting between nodes
+    def deleteInBetween(self, indexVal):
+        if indexVal < 0 or indexVal > self.lengthofList():
+            print("Invalid position provided!!")
+            return
+        elif indexVal == 0:
+            self.deleteAtHead()
+            return
+        else:
+            counter = 0
+            curNode = self.head
+            while counter <= indexVal:
+                if counter == indexVal:
+                    prevNode.next = curNode.next
+                    curNode.next = None
+                    break
+                prevNode = curNode
+                curNode = curNode.next
+                counter += 1
+
+
+
+
+
 
     def printlist(self):
+        if self.head is None:
+            print("list is empty!!!")
         curNode = self.head
 
         while curNode is not None:
@@ -115,13 +171,16 @@ llobj = LinkedList()
 llobj.insertAtHead(thirdNode)
 llobj.insertAtEnd(firstNode)
 llobj.insertAtEnd(secNode)
-# llobj.insertAtHead(fourthNode)
-# llobj.insertInBetween(fifthNode, 4)
-# llobj.insertInBetween(sixthNode, 1)
-# llobj.insertInBetween(seventhNode, 0)
+llobj.insertAtHead(fourthNode)
+llobj.insertInBetween(fifthNode, 4)
+llobj.insertInBetween(sixthNode, 1)
+llobj.insertInBetween(seventhNode, 0)
 llobj.insertInBetween(eighthNode, 3)
 print("before deleting ")
 llobj.printlist()
 llobj.deleteAtEnd()
+llobj.deleteAtHead()
 print("After deleting ")
+llobj.deleteInBetween(0)
+llobj.deleteInBetween(4)
 llobj.printlist()
