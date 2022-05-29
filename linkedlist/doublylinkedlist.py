@@ -123,6 +123,8 @@ class LinkedList:
                 if counter == posval:
                     curnode.previous.next = curnode.next
                     curnode.next.previous = curnode.previous
+                    curnode.next = None
+                    curnode.previous = None
                     break
                 curnode = curnode.next
                 counter += 1
